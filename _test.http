@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:3000
+
+### Get Album by album id
+GET {{baseUrl}}/api/albums/1
+Accept: application/json
+
+### List Albums with pagination
+GET {{baseUrl}}/api/albums?page=1&limit=1
+Accept: application/json
+
+### Get Photos by album id
+GET {{baseUrl}}/api/albums/1/photos?page=1&limit=2
+Accept: application/json
+
+### Get User by user id
+GET {{baseUrl}}/api/users/1
+Accept: application/json
+
+### List Users with pagination
+GET {{baseUrl}}/api/users?page=1&limit=2
+Accept: application/json
+
+### Get User Albums by user id
+GET {{baseUrl}}/api/users/1/albums?page=2&limit=2
+Accept: application/json
+
+### List Posts with pagination
+GET {{baseUrl}}/api/posts?page=1&limit=2
+Accept: application/json
+
+### Get Post by post id
+GET {{baseUrl}}/api/posts/1
+Accept: application/json
+
+### Get Post Comments by post id
+GET {{baseUrl}}/api/posts/1/comments?page=1&limit=20
+Accept: application/json

@@ -1,0 +1,1 @@
+export { AlbumHttpHandler } from "@/lib/handlers/albumHttpHandler";
