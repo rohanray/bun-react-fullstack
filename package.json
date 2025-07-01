@@ -7,8 +7,7 @@
   "module": "src/server.ts",
   "scripts": {
     "dev": "bun --hot src/server.ts",
-    "start": "NODE_ENV=production bun src/server.ts",
-    "prod": "bun run src/server.ts"
+    "start": "NODE_ENV=production bun src/server.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",
