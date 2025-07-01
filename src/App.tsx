@@ -21,7 +21,7 @@ const routes = [
     title: 'Users',
   },
   {
-    path: '/albums/:id?page=1&limit=10',
+    path: '/albums/:id',
     component: <AlbumsTablePage />,
     title: 'Albums',
   },
@@ -58,11 +58,11 @@ const navLinks = [
     component: <HomePage />,
     title: 'Home',
   },
-  {
-    path: '/about-me',
-    component: <div>Someday!</div>,
-    title: 'About Me',
-  },
+  // {
+  //   path: '/about-me',
+  //   component: <div>Someday!</div>,
+  //   title: 'About Me',
+  // },
   {
     path: '/users',
     component: <div>Users</div>,
@@ -73,11 +73,11 @@ const navLinks = [
     component: <AlbumsTablePage />,
     title: 'Albums',
   },
-  {
-    path: '/albums/:id/photos',
-    component: <div>Album Photos of #id </div>,
-    title: 'Album Photos',
-  },
+  // {
+  //   path: '/albums/:id/photos',
+  //   component: <div>Album Photos of #id </div>,
+  //   title: 'Album Photos',
+  // },
   {
     path: '/photos',
     component: <div>Photos</div>,
@@ -106,7 +106,7 @@ const NavBar = () => (
       {navLinks.map(nl => (
         <NavigationMenuItem key={nl.path}>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link to={nl.path} className="navigation-menu-link" >
+            <Link to={nl.path} className="navigation-menu-link mr-4 text-blue-600" >
               {nl.title}
             </Link>
           </NavigationMenuLink>

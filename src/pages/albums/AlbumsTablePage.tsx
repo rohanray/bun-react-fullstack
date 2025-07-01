@@ -6,14 +6,18 @@ import { FetchWithFallback, useFetch } from "@/lib/hooks";
 import type { Album } from "@/lib/types";
 
 export function AlbumsTablePage() {
-        const params = useParams();
-        const query = useQuery();  
-        const navigate = useNavigate();
-        // console.log(params);
-        // console.log(query);
-        // console.log(navigate);
+    const params = useParams();
+    const query = useQuery();
+    const navigate = useNavigate();
+    const handleNextPage = () => {
+        const currentPage = parseInt(query.page || '1');
+        navigate(`/albums/${params.id}?page=${currentPage + 1}&limit=${query.limit || '10'}`);
+    };
+    // console.log(params.id);
+    // console.log(query);
+    // console.log(navigate);
 
-    const data = useFetch<Album[]>('/api/albums?page=1&limit=1', { suspense: true });
+    const data = useFetch<Album[]>(`/api/albums?page=${query.page || '1'}&limit=${query.limit || '10'}`, { suspense: true });
     return (
         <div>
             <h4 className="text-xl font-semibold mb-4">
