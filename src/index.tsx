@@ -8,12 +8,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
-import { RouterExampleApp } from "./pages/RouterExampleApp";
+import { RouterExampleApp } from "@/examples/RouterExampleApp";
 
 const elem = document.getElementById("root")!;
 const app = (
   <StrictMode>
-    <RouterExampleApp />
+    <App />
   </StrictMode>
 );
 

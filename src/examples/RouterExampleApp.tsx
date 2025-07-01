@@ -19,6 +19,10 @@ function VideoComments() {
             <h1 className="text-2xl font-bold mb-4">
                 Example component using hook based parsing of parameters & query strings within target component
             </h1>
+            <h3 className="text-lg font-semibold mb-2">
+                [Recommended approach for most cases]
+            </h3>
+            <br />
             <h1>Comments for Video: <strong>{params.videoId}</strong></h1>
             <p>Page: <strong>{query.page || '1'}</strong>, Limit: <strong>{query.limit || '10'}</strong></p>
             <br />
