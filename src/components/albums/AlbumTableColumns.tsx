@@ -36,7 +36,7 @@ export const AlbumTableColumns: ColumnDef<Album>[] = [
     },
     {
         id: 'actions',
-        header: () => <span className="sr-only">Actions</span>,
+        header: () => <TableColumnHeader title="Actions" />,
         cell: ({ row }) => (
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
