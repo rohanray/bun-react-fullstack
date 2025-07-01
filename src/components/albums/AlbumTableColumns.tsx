@@ -50,7 +50,7 @@ export const AlbumTableColumns: ColumnDef<Album>[] = [
                     <DropdownMenuItem>Edit</DropdownMenuItem>
                     <DropdownMenuItem>Delete</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>View Details</DropdownMenuItem>
+                    <DropdownMenuItem>View Photos</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         ),
