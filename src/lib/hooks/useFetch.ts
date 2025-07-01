@@ -38,60 +38,30 @@ export function useFetch<T>(
     url: string,
     options: UseFetchOptions = { immediate: true, suspense: false }
 ): UseFetchResult<T> | UseFetchSuspenseResult<T> {
-    const [data, setData] = useState<T | null>(null);
-    const [loading, setLoading] = useState(!options.suspense);
-    const [error, setError] = useState<string | null>(null);
+    // Early return for suspense mode to avoid any state initialization
+    if (options.suspense) {
+        const refetch = () => {
+            suspenseCache.delete(url); // Clear cache to force refetch
+            return fetchDataSuspense();
+        };
 
-    const fetchData = async (): Promise<T> => {
-        if (!options.suspense) {
-            setLoading(true);
-            setError(null);
-        }
+        const fetchDataSuspense = async (): Promise<T> => {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const result = await response.json();
 
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const result = await response.json();
-
-            // Always set data for both modes
-            setData(result);
-
-            // Cache the result for Suspense mode
-            if (options.suspense) {
+                // Cache the result for Suspense mode
                 suspenseCache.set(url, { data: result });
-            }
-
-            return result;
-        } catch (err) {
-            const errorMessage = err instanceof Error ? err.message : 'Failed to fetch data';
-
-            if (options.suspense) {
+                return result;
+            } catch (err) {
                 suspenseCache.set(url, { error: err as Error });
                 throw err; // Let Error Boundary handle it
-            } else {
-                setError(errorMessage);
-                setData(null);
-                throw err;
             }
-        } finally {
-            if (!options.suspense) {
-                setLoading(false);
-            }
-        }
-    };
+        };
 
-    const refetch = () => {
-        if (options.suspense) {
-            suspenseCache.delete(url); // Clear cache to force refetch
-        }
-        setData(null); // Clear current data
-        return fetchData();
-    };
-
-    // Suspense mode logic
-    if (options.suspense) {
         const cached = suspenseCache.get(url);
 
         // If we have cached data, return it
@@ -115,10 +85,43 @@ export function useFetch<T>(
         }
 
         // Create and cache a new promise
-        const promise = fetchData();
+        const promise = fetchDataSuspense();
         suspenseCache.set(url, { promise });
         throw promise;
     }
+
+    // Traditional mode logic - only create state hooks for non-suspense mode
+    const [data, setData] = useState<T | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchData = async (): Promise<T> => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const result = await response.json();
+
+            setData(result);
+            return result;
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to fetch data';
+            setError(errorMessage);
+            setData(null);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const refetch = () => {
+        setData(null); // Clear current data
+        return fetchData();
+    };
 
     // Traditional mode logic
     useEffect(() => {
