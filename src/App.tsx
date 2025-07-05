@@ -1,6 +1,6 @@
 import { AppRouter, Link } from "@/components/AppRouter";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-import "./index.css";
+import "@/index.css";
 import HomePage from "@/pages/HomePage";
 import { AlbumsTablePage } from "@/pages/albums/AlbumsTablePage";
 

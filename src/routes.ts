@@ -1,7 +1,7 @@
 import index from "@/index.html"
 import { AlbumHttpHandler } from "@/lib/handlers";
-import { UserHttpHandler } from "./lib/handlers/userHttpHandler";
-import { PostHttpHandler } from "./lib/handlers/postHttpHandler";
+import { UserHttpHandler } from "@/lib/handlers/userHttpHandler";
+import { PostHttpHandler } from "@/lib/handlers/postHttpHandler";
 
 export default {
     // Serve index.html for all frontend routes
